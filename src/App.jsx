@@ -162,14 +162,14 @@ export default function App() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-4">
+            {/* <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-4">
               <h2 className="font-semibold text-zinc-900 dark:text-zinc-100">Settle Up (Suggested)</h2>
               <div className="mt-3 space-y-2">
                 {!settlements.length ? (
                   <div className="text-sm text-zinc-500">No settlements needed.</div>
                 ) : (
                   settlements.map((t, idx) => (
-                    <div key={idx} className="rounded-xl border border-zinc-200 dark:border-zinc-800 p-3 text-sm">
+                    <div key={idx} className="rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-100 p-3 text-sm">
                       <span className="font-medium">{memberName(t.from)}</span> pays{" "}
                       <span className="font-medium">{memberName(t.to)}</span>{" "}
                       <span className="font-semibold">{Number(t.amount).toFixed(2)}</span>
@@ -177,16 +177,16 @@ export default function App() {
                   ))
                 )}
               </div>
-            </div>
+            </div> */}
 
-            <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-4">
+            {/* <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-4">
               <h2 className="font-semibold text-zinc-900 dark:text-zinc-100">Tips</h2>
               <ul className="mt-2 text-sm text-zinc-600 dark:text-zinc-400 list-disc pl-5 space-y-1">
                 <li>Add all members first.</li>
                 <li>Leave participants empty to include everyone.</li>
                 <li>Use custom split for uneven sharing.</li>
               </ul>
-            </div>
+            </div> */}
           </aside>
         </main>
       </div>
