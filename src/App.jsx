@@ -142,7 +142,7 @@ export default function App() {
                 Positive = should receive, Negative = owes.
               </p>
 
-              <div className="mt-3 space-y-2 max-h-[calc(100vh-40rem)] md:max-h-[calc(100vh-20rem)] overflow-y-auto grid grid-cols-2 gap-2">
+              <div className="mt-3 space-y-2 max-h-[calc(100vh-20rem)] overflow-y-auto grid grid-cols-2 gap-2">
                 {!members.length ? (
                   <div className="text-sm text-zinc-500">Add members to start.</div>
                 ) : (
