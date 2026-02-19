@@ -79,7 +79,7 @@ export default function ExpenseForm({ members, onSave }) {
       }}
       className="space-y-4"
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-3">
         <div>
           <label className="text-sm text-zinc-600 dark:text-zinc-300">Purchase title</label>
           <input
