@@ -203,7 +203,7 @@ export default function ExpenseForm({ members, onSave, initialData }) {
               const m = members.find((x) => x.id === id);
               return (
                 <div key={id} className="flex items-center justify-between gap-2">
-                  <span className="text-sm">{m?.name}</span>
+                  <span className="text-sm dark:text-white">{m?.name}</span>
                   <input
                     type="number"
                     step="0.01"

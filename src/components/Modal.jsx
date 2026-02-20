@@ -13,7 +13,7 @@ export default function Modal({ open, title, children, onClose }) {
             Close
           </button>
         </div>
-        <div className="p-4">{children}</div>
+        <div className="p-4 max-h-[90vh] overflow-y-auto">{children}</div>
       </div>
     </div>
   );
