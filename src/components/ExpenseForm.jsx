@@ -198,7 +198,7 @@ export default function ExpenseForm({ members, onSave, initialData }) {
           <div className="text-sm text-zinc-700 dark:text-zinc-300">
             Custom split (total must equal Amount)
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
             {effectiveParticipants.map((id) => {
               const m = members.find((x) => x.id === id);
               return (
@@ -209,7 +209,7 @@ export default function ExpenseForm({ members, onSave, initialData }) {
                     step="0.01"
                     value={customShares[id] ?? ""}
                     onChange={(e) => handleCustomShareChange(id, e.target.value)}
-                    className="w-32 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-3 py-2 text-sm dark:text-white"
+                    className="w-25 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-3 py-2 text-sm dark:text-white"
                     placeholder="0.00"
                   />
                 </div>
