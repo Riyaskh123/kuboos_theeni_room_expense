@@ -127,7 +127,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="mt-4 space-y-3 max-h-[calc(100vh-20rem)] overflow-y-auto">
+              <div className="mt-4 space-y-3 md:min-h-[calc(100vh-20rem)] max-h-[calc(100vh-40rem)] md:max-h-[calc(100vh-10rem)] overflow-y-auto">
                 {!expenses.length ? (
                   <div className="text-sm text-zinc-500">No expenses yet.</div>
                 ) : (
@@ -175,13 +175,13 @@ export default function App() {
           </section>
 
           <aside className="space-y-4">
-            <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-4">
+            <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-4 md:min-h-[calc(100vh-20rem)]">
               <h2 className="font-semibold text-zinc-900 dark:text-zinc-100">Members & Balances</h2>
               <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
                 Positive = should receive, Negative = owes.
               </p>
 
-              <div className="mt-3 space-y-2 max-h-[calc(100vh-20rem)] overflow-y-auto grid grid-cols-2 gap-2">
+              <div className="mt-3 space-y-1 max-h-[calc(100vh-20rem)] overflow-y-auto grid grid-cols-2 gap-2">
                 {!members.length ? (
                   <div className="text-sm text-zinc-500">Add members to start.</div>
                 ) : (
