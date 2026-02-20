@@ -209,7 +209,7 @@ export default function ExpenseForm({ members, onSave, initialData }) {
                     step="0.01"
                     value={customShares[id] ?? ""}
                     onChange={(e) => handleCustomShareChange(id, e.target.value)}
-                    className="w-25 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-3 py-2 text-sm dark:text-white"
+                    className="w-16 md:w-25 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-3 py-2 text-sm dark:text-white"
                     placeholder="0.00"
                   />
                 </div>
