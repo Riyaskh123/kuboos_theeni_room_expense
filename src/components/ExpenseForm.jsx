@@ -2,19 +2,28 @@ import { useMemo, useState } from "react";
 
 const CATEGORIES = ["Food", "Utensils", "Groceries", "Other"];
 
-export default function ExpenseForm({ members, onSave }) {
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("Food");
-  const [amount, setAmount] = useState("");
-  const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10));
-  const [note, setNote] = useState("");
-  const [paidBy, setPaidBy] = useState("");
-  const [splitType, setSplitType] = useState("equal");
-  const [participants, setParticipants] = useState([]);
-  const [customShares, setCustomShares] = useState({});
+export default function ExpenseForm({ members, onSave, initialData }) {
+  const [title, setTitle] = useState(initialData?.title || "");
+  const [category, setCategory] = useState(initialData?.category || "Food");
+  const [amount, setAmount] = useState(initialData?.amount ?? "");
+  const [date, setDate] = useState(
+    initialData?.date || new Date().toISOString().slice(0, 10)
+  );
+  const [note, setNote] = useState(initialData?.note || "");
+  const [paidBy, setPaidBy] = useState(initialData?.paidByMemberId || "");
+  const [splitType, setSplitType] = useState(initialData?.splitType || "equal");
+  const [participants, setParticipants] = useState(initialData?.participants || []);
+  const [customShares, setCustomShares] = useState(initialData?.customShares || {});
+
 
   const allMemberIds = useMemo(() => members.map((m) => m.id), [members]);
-  const effectiveParticipants = participants.length ? participants : allMemberIds;
+
+  const effectiveParticipants = useMemo(() => {
+    if (participants && participants.length) return participants;
+    // for create mode allow default all
+    return initialData ? (initialData.participants?.length ? initialData.participants : allMemberIds) : allMemberIds;
+  }, [participants, initialData, allMemberIds]);
+
 
   const equalPerHead = useMemo(() => {
     const a = Number(amount || 0);
@@ -54,8 +63,8 @@ export default function ExpenseForm({ members, onSave }) {
           customShares:
             splitType === "custom"
               ? Object.fromEntries(
-                  effectiveParticipants.map((id) => [id, Number(customShares[id] || 0)])
-                )
+                effectiveParticipants.map((id) => [id, Number(customShares[id] || 0)])
+              )
               : null,
         };
 
@@ -225,7 +234,7 @@ export default function ExpenseForm({ members, onSave }) {
       </div>
 
       <button className="w-full rounded-xl bg-zinc-900 text-white py-2 font-medium hover:opacity-90">
-        Add Expense
+       {initialData ? "Update Expense" : "Add Expense"}
       </button>
     </form>
   );

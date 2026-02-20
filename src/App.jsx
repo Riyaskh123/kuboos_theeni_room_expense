@@ -1,5 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
-import { collection, addDoc, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  onSnapshot,
+  orderBy,
+  query,
+  serverTimestamp,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
+
 import { db } from "./firebase";
 import Modal from "./components/Modal";
 import MemberForm from "./components/MemberForm";
@@ -13,6 +23,8 @@ export default function App() {
   const [expenses, setExpenses] = useState([]);
   const [openMember, setOpenMember] = useState(false);
   const [openExpense, setOpenExpense] = useState(false);
+  const [editingExpense, setEditingExpense] = useState(null);
+
 
   useEffect(() => {
     const membersRef = collection(db, "rooms", ROOM_ID, "members");
@@ -60,6 +72,17 @@ export default function App() {
     setOpenExpense(false);
   };
 
+  const updateExpense = async (expenseId, payload) => {
+    const ref = doc(db, "rooms", ROOM_ID, "expenses", expenseId);
+    await updateDoc(ref, {
+      ...payload,
+      updatedAt: serverTimestamp(),
+    });
+    setEditingExpense(null);
+    setOpenExpense(false);
+  };
+
+
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-black">
       <div className="max-w-6xl mx-auto p-4 md:p-8">
@@ -81,7 +104,10 @@ export default function App() {
               + Add Member
             </button>
             <button
-              onClick={() => setOpenExpense(true)}
+              onClick={() => {
+                setEditingExpense(null);
+                setOpenExpense(true);
+              }}
               className="rounded-xl bg-green-900 text-white px-4 py-2 font-medium hover:opacity-90"
               disabled={!members.length}
               title={!members.length ? "Add at least one member first" : ""}
@@ -125,9 +151,22 @@ export default function App() {
                           Split: {e.splitType} • Participants: {(e.participants || []).length}
                         </div>
                       </div>
-                      <div className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
-                        {Number(e.amount).toFixed(2)}
+                      <div className="flex items-center gap-2">
+                        <div className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+                          {Number(e.amount).toFixed(2)}
+                        </div>
+                        <button
+                          onClick={() => {
+                            setEditingExpense(e);
+                            setOpenExpense(true);
+                          }}
+                          className="rounded-lg px-3 py-1 text-sm border border-zinc-200 dark:border-zinc-800 bg-white
+                          dark:text-zinc-100 dark:bg-zinc-950"
+                        >
+                          Edit
+                        </button>
                       </div>
+
                     </div>
                   ))
                 )}
@@ -196,7 +235,14 @@ export default function App() {
       </Modal>
 
       <Modal open={openExpense} title="Add Expense" onClose={() => setOpenExpense(false)}>
-        <ExpenseForm members={members} onSave={addExpense} />
+        <ExpenseForm
+          members={members}
+          initialData={editingExpense}
+          onSave={(payload) => {
+            if (editingExpense) return updateExpense(editingExpense.id, payload);
+            return addExpense(payload);
+          }}
+        />
       </Modal>
     </div>
   );
