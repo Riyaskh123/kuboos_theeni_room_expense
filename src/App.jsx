@@ -88,10 +88,13 @@ export default function App() {
       <div className="max-w-6xl mx-auto p-4 md:p-8">
         <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-xl md:text-3xl font-bold text-zinc-900 dark:text-zinc-100">
-              Kuboos Theeni - Expense Manager
+            <h1 className="text-3xl md:text-3xl font-bold text-emerald-900 dark:text-red-600">
+              Kuboos Theeni
             </h1>
-            <p className="text-zinc-600 dark:text-zinc-400">
+            <h2 className="text-sm md:text-3xl font-bold text-zinc-900 dark:text-zinc-100">
+              Room Expense Manager
+            </h2>
+            <p className="text-zinc-600 dark:text-zinc-400 text-sm">
               Track food, utensils, and shared purchases. Split fairly.
             </p>
           </div>
@@ -127,7 +130,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="mt-4 space-y-3 md:min-h-[calc(100vh-20rem)] max-h-[calc(100vh-40rem)] md:max-h-[calc(100vh-10rem)] overflow-y-auto">
+              <div className="mt-4 space-y-3 md:min-h-[calc(100vh-20rem)] max-h-[300px] md:max-h-[calc(100vh-10rem)] overflow-y-auto">
                 {!expenses.length ? (
                   <div className="text-sm text-zinc-500">No expenses yet.</div>
                 ) : (
