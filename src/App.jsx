@@ -15,6 +15,7 @@ import Modal from "./components/Modal";
 import MemberForm from "./components/MemberForm";
 import ExpenseForm from "./components/ExpenseForm";
 import { computeBalances, suggestSettlements, round2 } from "./utils/calc";
+import ExpenseList from "./components/ExpenseList";
 
 const ROOM_ID = "room"; // simple single-room start
 
@@ -24,6 +25,9 @@ export default function App() {
   const [openMember, setOpenMember] = useState(false);
   const [openExpense, setOpenExpense] = useState(false);
   const [editingExpense, setEditingExpense] = useState(null);
+  const [openView, setOpenView] = useState(false);
+  const [selectedMember, setSelectedMember] = useState(null);
+  const [memberExpenses, setMemberExpenses] = useState([]);
 
 
   useEffect(() => {
@@ -49,6 +53,16 @@ export default function App() {
     const total = expenses.reduce((s, e) => s + Number(e.amount || 0), 0);
     return { total: round2(total) };
   }, [expenses]);
+
+
+  const openViewModal = (member) => {
+    setSelectedMember(member);
+    console.log(expenses);
+    setMemberExpenses(
+      expenses.filter((e) => e.paidByMemberId === member.id)
+    );
+    setOpenView(true);
+  };
 
   const balances = useMemo(() => computeBalances(members, expenses), [members, expenses]);
   const settlements = useMemo(() => suggestSettlements(balances), [balances]);
@@ -197,6 +211,12 @@ export default function App() {
                         <div className={`font-semibold ${pos ? "text-emerald-600" : "text-rose-600"}`}>
                           {round2(b).toFixed(2)}
                         </div>
+                        <button
+                          onClick={() => openViewModal(m)}
+                          className="mt-3 w-full bg-blue-600 text-white py-1 rounded text-sm"
+                        >
+                          Spendings
+                        </button>
                       </div>
                     );
                   })
@@ -246,6 +266,14 @@ export default function App() {
             return addExpense(payload);
           }}
         />
+      </Modal>
+
+      <Modal
+        open={openView}
+        title={`${selectedMember?.name} Expenses`}
+        onClose={() => setOpenView(false)}
+      >
+        <ExpenseList expenses={memberExpenses} />
       </Modal>
     </div>
   );
