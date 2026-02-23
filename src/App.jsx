@@ -206,14 +206,28 @@ export default function App() {
                     const b = balances[m.id] ?? 0;
                     const pos = b >= 0;
                     return (
-                      <div key={m.id} className="flex items-center justify-between rounded-xl border border-zinc-200 dark:border-zinc-800 p-3 flex-col md:flex-row md:width-full">
-                        <div className="font-medium text-zinc-900 dark:text-zinc-100">{m.name}</div>
-                        <div className={`font-semibold ${pos ? "text-emerald-600" : "text-rose-600"}`}>
-                          {round2(b).toFixed(2)}
+                      <div
+                        key={m.id}
+                        className="flex flex-col rounded-xl border border-zinc-200 dark:border-zinc-800 p-3"
+                      >
+                        {/* Top row */}
+                        <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+                          <div className="font-medium text-zinc-900 dark:text-zinc-100 text-center">
+                            {m.name}
+                          </div>
+
+                          <div
+                            className={`font-semibold text-center ${pos ? "text-emerald-600" : "text-rose-600"
+                              }`}
+                          >
+                            {round2(b).toFixed(2)}
+                          </div>
                         </div>
+
+                        {/* Bottom button */}
                         <button
                           onClick={() => openViewModal(m)}
-                          className="mt-3 w-full bg-blue-600 text-white py-1 rounded text-sm"
+                          className="mt-1 w-full bg-blue-600 text-white py-1 rounded text-sm"
                         >
                           Spendings
                         </button>
@@ -270,7 +284,7 @@ export default function App() {
 
       <Modal
         open={openView}
-        title={`${selectedMember?.name} Expenses`}
+        title={`${selectedMember?.name} Spendings`}
         onClose={() => setOpenView(false)}
       >
         <ExpenseList expenses={memberExpenses} />
