@@ -114,12 +114,12 @@ export default function App() {
           </div>
 
           <div className="flex gap-2">
-            <button
+            {/* <button
               onClick={() => setOpenMember(true)}
               className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-green px-4 py-2 font-medium"
             >
               + Add Member
-            </button>
+            </button> */}
             <button
               onClick={() => {
                 setEditingExpense(null);
